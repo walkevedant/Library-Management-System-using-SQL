@@ -1,0 +1,120 @@
+create database AV_library_Management;
+use AV_library_Management;
+
+CREATE TABLE `book_details` (
+  `Book_ID` int NOT NULL,
+  `ISBN` int NOT NULL,
+  `Book_Title` varchar(100) NOT NULL,
+  `Author` varchar(100) NOT NULL,
+  `Book_Location` varchar(50) NOT NULL,
+  `Branch_ID` int NOT NULL,
+  PRIMARY KEY (`Book_ID`)
+);
+
+insert into book_details values
+(101,124567,"Machine Learning",'Andrew g','A25',18),
+(103,548891,'The India Story','Bimal Jalal','B33',08),
+(102,445641,'Neuroscience','Roger','N02',11);
+
+
+CREATE TABLE `library_details` (
+  `Lib_ID` int NOT NULL,
+  `Branch_name` varchar(100) NOT NULL,
+  `Adress` varchar(100) NOT NULL,
+  PRIMARY KEY (`Lib_ID`)
+);
+
+insert into library_details values
+(11,"Pune","Shivaji Nagar"),
+(18,"Mumbai","Dadar"),
+(8,"Nagpur","Laxmi Nagar");
+
+
+ CREATE TABLE `member_details` (
+  `ID` int NOT NULL,
+  `Name` varchar(100) NOT NULL,
+  `Username` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  PRIMARY KEY (`ID`)
+);
+
+ insert into member_details values
+ (1,"Ram","Ram.1","Ram.88"),
+ (2,"Ved","Ved.2","Ved.88"),
+ (3,"Tejas","Tejas.3","Tejas.99");
+
+
+
+CREATE TABLE `records` (
+  `Book_ID` int NOT NULL,
+  `Member_ID` int NOT NULL,
+  `Lib_ID` int NOT NULL,
+  `Issuing_date` datetime NOT NULL,
+  `Return_date` datetime DEFAULT NULL,
+  `Fine_Due` decimal(10,0) DEFAULT NULL,
+  PRIMARY KEY (`Book_ID`),
+  KEY `Member_ID` (`Member_ID`),
+  KEY `Lib_ID` (`Lib_ID`),
+  CONSTRAINT `records_ibfk_1` FOREIGN KEY (`Book_ID`) REFERENCES `book_details` (`Book_ID`),
+  CONSTRAINT `records_ibfk_2` FOREIGN KEY (`Member_ID`) REFERENCES `member_details` (`ID`),
+  CONSTRAINT `records_ibfk_3` FOREIGN KEY (`Lib_ID`) REFERENCES `library_details` (`Lib_ID`)
+);
+
+insert into records values
+(103,2,11,"2017-06-15",Null,200),
+(102,1,8,"2017-04-13","2017-05-12",Null),
+(101,3,18,"2017-08-22","2017-09-21",Null);
+
+
+alter table book_details add foreign key (Author) references Authors (Name);
+alter table book_details add foreign key (Branch_ID) references library_details (Lib_ID);
+alter table records add foreign key (Book_ID) references book_details (Book_ID);
+alter table records add foreign key (Member_ID) references Member_details (ID);
+alter table records add foreign key (Lib_ID) references library_details (Lib_ID);
+
+
+create table Publishers( Pub_ID varchar(20) primary key, Name varchar(250) not null);
+create table authors( Name varchar(100) not null, Author_ID varchar(50) not null, No_of_Books int not null,Pub_ID varchar(20));
+alter table book_details add column Pub_ID varchar(50) not null;
+alter table authors add primary key(Name);
+
+insert into authors values ('Andrew g','A108', 25,'Pub_3081'),('Roger', 'A105',18,'Pub_1989'),('Bimal Jalal','A251',34,'Pub_2441');
+
+ insert into publishers values
+  ('Pub_1989','Orient Longman'),
+  ('Pub_3081','Westland'),
+  ('Pub_2441','Penguin');
+
+
+describe book_details;
+describe library_details;
+describe member_details;
+describe records;
+describe authors;
+describe Publishers;
+select * from book_details;
+select * from library_details;
+select * from member_details;
+select * from records;
+select * from authors;
+select * from Publishers;
+
+
+
+/*Query to find book location from Book Title*/
+select Book_Title, Book_Location from Book_Details where Book_Title="The India Story";
+
+/*Query to find books by author name*/
+select Book_Title, Author from Book_Details where Author="Andrew g";
+
+/*Finding issuing date from Book ID*/
+select Book_ID,Issuing_date from records where Book_ID=102;
+
+/*Finding Library_Branch_details of book*/
+ select * from Library_details where Lib_ID=(select Branch_ID from Book_details where Book_Title="Neuroscience");
+
+/*Finding count of available books by ISBN number*/
+select count(*) as Count_of_books,ISBN from Book_details where ISBN=124567;
+
+/*finding fine due of the member using member ID*/
+select member_ID, Fine_Due from records where member_ID=2;
