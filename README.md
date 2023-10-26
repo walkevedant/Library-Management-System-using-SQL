@@ -2,21 +2,21 @@
 Description:
 The Library Management System is a database system designed to manage the details of books, library branches, members, and borrowing records in an audio-visual library. The system allows librarians to efficiently track and organize the library's collection and handle member borrowing activities.
 
-Tables:
+**Tables** :
 
-book_details: This table stores the details of books, including the book ID, ISBN, title, author, book location, and branch ID where the book is located.
+book_details : This table stores the details of books, including the book ID, ISBN, title, author, book location, and branch ID where the book is located.
 
-library_details: This table contains information about library branches, including the library ID, branch name, and address.
+library_details : This table contains information about library branches, including the library ID, branch name, and address.
 
-member_details: This table holds the details of library members, including their ID, name, username, and password.
+member_detail0s : This table holds the details of library members, including their ID, name, username, and password.
 
 records: This table maintains the borrowing records of books, including the book ID, member ID, library ID, issuing date, return date, and fine due. It also includes foreign key constraints to link the records with the book, member, and library details.
 
-authors: This table stores information about authors, including their name, author ID, number of books written, and publisher ID. It is linked to the book_details table through a foreign key relationship based on the author's name.
+authors : This table stores information about authors, including their name, author ID, number of books written, and publisher ID. It is linked to the book_details table through a foreign key relationship based on the author's name.
 
-Publishers: This table contains details of book publishers, including the publisher ID and name.
+Publishers : This table contains details of book publishers, including the publisher ID and name.
 
-Functionality:
+**Functionality **:
 
 The system allows users to retrieve the location of a book based on its title.
 Users can search for books written by a specific author.
