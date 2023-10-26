@@ -16,7 +16,7 @@ authors : This table stores information about authors, including their name, aut
 
 Publishers : This table contains details of book publishers, including the publisher ID and name.
 
-**Functionality ** :
+**Functionality** :
 
 The system allows users to retrieve the location of a book based on its title.
 Users can search for books written by a specific author.
