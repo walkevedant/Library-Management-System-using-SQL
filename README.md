@@ -8,7 +8,7 @@ book_details : This table stores the details of books, including the book ID, IS
 
 library_details : This table contains information about library branches, including the library ID, branch name, and address.
 
-member_detail0s : This table holds the details of library members, including their ID, name, username, and password.
+member_details : This table holds the details of library members, including their ID, name, username, and password.
 
 records: This table maintains the borrowing records of books, including the book ID, member ID, library ID, issuing date, return date, and fine due. It also includes foreign key constraints to link the records with the book, member, and library details.
 
